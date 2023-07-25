@@ -1,0 +1,108 @@
+{% load static %}
+<!-- Navbar -->
+        <span class="nav-bar" id="btnMenu"><i class="fas fa-bars"></i> Residencial Ciudad Verde</span>
+        <nav class="main-nav">
+
+            <ul class="menu" id="menu">
+                <div class="col-sm-2 titulo-menu">
+                    <img src="{% static 'img/logo.png' %}" alt="AdminLTE Logo" class="brand-image" style="width: 30px; height: 30px;">
+                    <label>Residencial Ciudad Verde</label>
+                </div>
+                <li class="menu__item"><a href="{% url 'erp:dashboard' %}" class="menu__link"><i class="fas fa-home"></i> Inicio</a></li>
+                <li class="menu__item container-submenu">
+                    <a href="#" class="menu__link submenu-btn"><i class="fa-solid fa-boxes-packing"></i>  Administración <i class="fa-solid fa-sort-down"></i></a>
+                    <ul class="submenu">
+                        <li class="menu__item"><a href="{% url 'erp:client_list' %}" class="menu__link"><i class="fa-regular fa-address-book"></i> Clientes</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:clientesprospectos_list' %}" class="menu__link"><i class="fa-solid fa-user-plus"></i> Clientes Prospectos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:listanegra_list' %}" class="menu__link"><i class="fa-solid fa-clipboard-list"></i> Lista Negra de Clientes</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:proveedores_list' %}" class="menu__link"><i class="fa-solid fa-address-book"></i> Proveedores</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:cuentasxcobrar_list' %}" class="menu__link"><i class="fa-solid fa-book"></i> Cuentas por Cobrar</a></li>
+                        <li class="menu__item"><a href="#" class="menu__link"><i class="fa-solid fa-briefcase"></i></i> Cuentas por Pagar</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:movefectivo_list' %}" class="menu__link"><i class="fa-solid fa-money-bill-transfer"></i> Movimientos de Efectivo</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:ctasbancarias_list' %}" class="menu__link"><i class="fa-solid fa-vault"></i> Movimientos Ctas. Bancarias</a></li>
+                    </ul>
+                </li>
+                <li class="menu__item container-submenu">
+                    <a href="#" class="menu__link submenu-btn"><i class="fa-solid fa-dolly"></i>  Operaciones <i class="fa-solid fa-sort-down"></i></a>
+                    <ul class="submenu">
+                        <li class="menu__item"><a href="{% url 'erp:dashboard' %}" class="menu__link"><i class="fa-solid fa-tent-arrow-left-right"></i> Ventas</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:gastos_list' %}" class="menu__link"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:notascredito_create' %}" class="menu__link"><i class="fa-solid fa-diagram-next"></i> Notas de Credito</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:lotes_list' %}" class="menu__link"><i class="fa-solid fa-box-archive"></i> Productos</a></li>
+                        <!--
+                        <li class="menu__item"><a href="{% url 'erp:ventas_list' %}" class="menu__link"><i class="fa-solid fa-cart-shopping"></i> Consulta Ventas</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:compras_list' %}" class="menu__link"><i class="fa-solid fa-cart-arrow-down"></i> Compras</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:devolucioncompra_list' %}" class="menu__link"><i class="fa-solid fa-cart-flatbed"></i> Devoluciones de Compras</a></li>
+                        -->
+                        <li class="menu__item"><a href="#" class="menu__link"><i class="fa-solid fa-clock"></i> Asistencia</a></li>
+                    </ul>
+                </li>
+                <li class="menu__item container-submenu">
+                    <a href="#" class="menu__link submenu-btn"><i class="fa-solid fa-magnifying-glass"></i>  Consultas <i class="fa-solid fa-sort-down"></i></a>
+                    <ul class="submenu">
+                        <li class="menu__item"><a href="{% url 'erp:ventas_consulta' %}" class="menu__link"><i class="fa-solid fa-cart-shopping"></i> Ventas</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:ventas_vendedores' %}" class="menu__link"><i class="fa-solid fa-user-tie"></i> Resumen Vendedores</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:ventas_detalle' %}" class="menu__link"><i class="fa-solid fa-user-tie"></i> Detalle por Vendedor</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:gastos_consulta' %}" class="menu__link"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:notascredito_consulta' %}" class="menu__link"><i class="fa-solid fa-diagram-next"></i> Notas de Credito</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:reservas_consulta' %}" class="menu__link"><i class="fa-solid fa-receipt"></i> Reservas</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:cuotas_consulta' %}" class="menu__link"><i class="fa-solid fa-file-invoice-dollar"></i> Cuotas/Pagos Pendientes</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:comentarios_list' %}" class="menu__link"><i class="fa-solid fa-message"></i> Comentarios</a></li>
+                    </ul>
+                </li>
+                <li class="menu__item container-submenu">
+                    <a href="#" class="menu__link submenu-btn"><i class="fa-solid fa-gears"></i>  Configuración <i class="fa-solid fa-sort-down"></i></a>
+                    <ul class="submenu">
+                        <li class="menu__item"><a href="{% url 'erp:empresa_update' 1 %}" class="menu__link"><i class="fa-solid fa-hotel"></i> Empresa</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:monedas_list' %}" class="menu__link"><i class="fa-solid fa-money-bill-1"></i> Monedas</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:bancos_list' %}" class="menu__link"><i class="fa-solid fa-building-columns"></i> Bancos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:ctasbancarias_listc' %}" class="menu__link"><i class="fa-solid fa-money-check-dollar"></i> Cuentas Bancarias</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:cajas_list' %}" class="menu__link"><i class="fa-solid fa-cash-register"></i> Cajas</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:formaspago_list' %}" class="menu__link"><i class="fa-solid fa-credit-card"></i> Métodos de Pago</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:unidades_list' %}" class="menu__link"><i class="fa-solid fa-pen-ruler"></i> Unidades</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:depositos_list' %}" class="menu__link"><i class="fa-solid fa-warehouse"></i> Depositos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:envios_list' %}" class="menu__link"><i class="fa-solid fa-truck"></i> Empresas Envíos</a></li>
+                        <li class="menu__item"><a href="{% url 'user:user_list' %}" class="menu__link"><i class="fas fa-users"></i> Usuarios</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:category_list' %}" class="menu__link"><i class="fa-solid fa-rectangle-list"></i> Categorías</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:gastos_conf' %}" class="menu__link"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:subgastos_list' %}" class="menu__link"><i class="fa-solid fa-dolly"></i> SubGastos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:transacciones_list' %}" class="menu__link"><i class="fa-solid fa-money-bill-transfer"></i> Transacciones</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:conceptos_list' %}" class="menu__link"><i class="fa-solid fa-book-atlas"></i> Conceptos de Movimientos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:tiposdocumentos_list' %}" class="menu__link"><i class="fa-solid fa-file-lines"></i> Tipos de Documentos</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:identifica_list' %}" class="menu__link"><i class="fa-solid fa-address-card"></i> Tipos de Identificación</a></li>
+                        <li class="menu__item"><a href="{% url 'erp:Importar_list' %}" class="menu__link"><i class="fa-solid fa-file-arrow-up"></i> Importar Datos</a></li>
+                    </ul>
+                </li>
+                <li class="menu__item"><a href="{% url 'erp:soporte_list' %}" class="menu__link"><i class="fa-solid fa-computer"></i> Soporte</a></li>
+                <div class="col-sm-4 titulo-menu" style="text-align:right;">
+                    <li class="menu__item">
+                        <a data-toggle="dropdown" href="#" style="text-align:right;">
+                            <FONT COLOR="white">
+                                <img src="{{ request.user.get_image }}" alt="AdminLTE Logo" class="img-circle brand-image" style="width: 30px; height: 30px;">
+                                {{ request.user.get_full_name }}
+                            </FONT>
+                        </a>
+                        <a style="color:yellow;" href="{% url 'erp:comentarios_list' %}" title="Notificaciones Nuevas" style="text-align:right;"><b>30 </b><i class="far fa-bell"></i></a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <a href="{% url 'user:user_profile' %}" class="dropdown-item"><i class="fas fa-edit mr-2"></i> Editar perfil</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'user:user_change_password' %}" class="dropdown-item"><i class="fas fa-lock mr-2"></i> Editar password</a>
+                            {% if request.user.groups.all %}
+                                <div class="dropdown-divider"></div>
+                                {% if request.session.group  %}
+                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-user-group"></i> Perfil Seleccionado:  {{ request.session.group }}</a>
+                                {% endif %}
+                                {% for g in request.user.groups.all %}
+                                    {% if g.id != request.session.group.id %}
+                                        <a href="{% url 'user:user_change_group' g.id %}" class="dropdown-item"><i class="fa-solid fa-user-group"></i> Perfil:  {{ g.name }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'logout' %}" class="dropdown-item"><i class="fas fa-power-off" aria-hidden="true"></i> Cerrar Sesión</a>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+        <script src="{% static 'lib/Menu/menu.js' %}"></script>

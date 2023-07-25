@@ -1,0 +1,211 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="post" action="." enctype="multipart/form-data">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {% if action == 'add' %}
+                                <i class="fas fa-plus"></i>
+                            {% else %}
+                                <i class="fas fa-edit"></i>
+                            {% endif %}
+
+                            {{ title }}
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="{{ action }}">
+                        {% if form.errors %}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        {% for field in form.visible_fields %}
+                            <div class="form-group">
+                                <label for="email">{{ field.label }}:</label>
+                                {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-flat">
+                            <i class="fas fa-save"></i> Guardar registro
+                        </button>
+                        <a href="{{ list_url }}" class="btn btn-danger btn-flat">
+                            <i class="fas fa-times"></i> Cancelar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa-solid fa-calendar-week"></i> Calendarios</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table display cell-border" id="tblCalendarios">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 10%; text-align: center">Id</th>
+                                <th scope="col" style="width: 40%; text-align: center">Descripción</th>
+                                <th scope="col" style="width: 10%; text-align: center">Activo</th>
+                                <th scope="col" style="width: 10%; text-align: center">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for datCalendarios in Calendarios %}
+                                <tr>
+                                    <td class="text-center">{{ datCalendarios.id }}</td>
+                                    <td>{{ datCalendarios.Descripcion }}</td>
+                                    <td class="text-center">{{ datCalendarios.CalendarioActivo }}</td>
+                                    <td class="text-center">
+                                        <a href="/erp/liga/calendario/update/{{ datCalendarios.id }}/" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+                                        <a href="/erp/liga/calendario/delete/{{ datCalendarios.id }}/" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_create_calendario }}" class="btn btn-primary btn-flat btnTest"><i class="fas fa-plus"></i> Nuevo registro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa-solid fa-clock"></i> Horarios Jornadas</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table display cell-border" id="tblHorarios">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 10%; text-align: center">Id</th>
+                                <th scope="col" style="width: 75%; text-align: center">Descripción</th>
+                                <th scope="col" style="width: 15%; text-align: center">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for datHorarios in Horarios %}
+                                <tr>
+                                    <td class="text-center">{{ datHorarios.id }}</td>
+                                    <td>{{ datHorarios.Descripcion }}</td>
+                                    <td class="text-center">
+                                        <a href="/erp/liga/horario/update/{{ datHorarios.id }}/" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+                                        <a href="/erp/liga/horario/delete/{{ datHorarios.id }}/" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_create_horario }}" class="btn btn-primary btn-flat btnTest"><i class="fas fa-plus"></i> Nuevo registro</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa-solid fa-school-flag"></i> Estadios</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table display cell-border" id="tblEstadios">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 5%; text-align: center">Id</th>
+                                <th scope="col" style="width: 25%; text-align: center">Nombre</th>
+                                <th scope="col" style="width: 45%; text-align: center">Dirección</th>
+                                <th scope="col" style="width: 15%; text-align: center">Foto</th>
+                                <th scope="col" style="width: 10%; text-align: center">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for datEstadios in Estadios %}
+                                <tr>
+                                    <td class="text-center">{{ datEstadios.id }}</td>
+                                    <td>{{ datEstadios.Nombre }}</td>
+                                    <td>{{ datEstadios.Direccion }}</td>
+                                    <td class="text-center">
+                                        <img src="{{ datEstadios.Foto }}" class="img-fluid d-block mx-auto" style="width: 30px; height: 30px;"></td>
+                                    <td class="text-center">
+                                        <a href="/erp/liga/estadio/update/{{ datEstadios.id }}/" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+                                        <a href="/erp/liga/estadio/delete/{{ datEstadios.id }}/" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_create_estadio }}" class="btn btn-primary btn-flat btnTest"><i class="fas fa-plus"></i> Nuevo registro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".two-decimals").change(function(){
+            this.value = parseFloat(this.value).toFixed(2);
+        });
+
+        $('.select2').select2({
+            theme: "bootstrap4",
+            language: 'es'
+        });
+
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+
+        $('#Fecha').datetimepicker({
+            format: 'YYYY-MM-DD',
+            date: moment().format("YYYY-MM-DD"),
+            locale: 'es',
+            maxDate: moment().format("YYYY-MM-DD"),
+        });
+
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            submit_with_ajax(window.location.pathname, 'Alerta', '¿Estas seguro de guardar el registro?', parameters, function () {
+                Swal.fire({
+                    title: 'Alerta',
+                    text: 'Proceso Finalizado Correctamente',
+                    icon: 'success',
+                    onClose: () => {
+                        location.href = '{{ list_url }}';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,179 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <form id="frmUser" method="post" action="." enctype="multipart/form-data">
+        <div class="card card-dark">
+            <div class="card-header">
+                <h3 class="card-title">
+                    {% if action == 'add' %}
+                        <i class="fas fa-plus"></i>
+                    {% else %}
+                        <i class="fas fa-edit"></i>
+                    {% endif %}
+
+                    {{ title }}
+                </h3>
+            </div>
+            <div class="card-body">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="{{ action }}">
+                {% if form.errors %}
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                        <ul>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <label>Nombres:</label><div class="col-sm-12">{{ form.first_name }}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Apellidos:</label><div class="col-sm-12">{{ form.last_name }}</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3">
+                        <label>Usuario:</label><div class="col-sm-12">{{ form.username }}</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Grupos:</label><div class="col-sm-12">{{ form.groups }}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Dirección de Correo Electrónico:</label><div class="col-sm-12">{{ form.email }}</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-3">
+                        <label>Password:</label><div class="col-sm-12">{{ form.password }}</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Equipo:</label>
+                        <div class="input-group">
+                            <div class="col-sm-10">
+                                {{ form.Equipo }}
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-success btn-flat btnAddEquipo" type="button"><i class="fa-solid fa-square-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Foto:</label><div class="col-sm-12">{{ form.image }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary btn-flat">
+                    <i class="fas fa-save"></i> Guardar registro
+                </button>
+                <a href="{{ list_url }}" class="btn btn-danger btn-flat">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+            </div>
+        </div>
+    </form>
+    <!-- Modal -->
+    <div class="modal fade" id="myModalEquipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="frmEquipo" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <b><i class="fa-solid fa-square-plus"></i> Agregar Equipo</b>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for field in frmCaja.visible_fields %}
+                            <div class="form-group">
+                                <label for="email">{{ field.label }}:</label>
+                                {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-flat">
+                            <i class="fas fa-save"></i> Guardar Registro
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(".two-decimals").change(function(){
+            this.value = parseFloat(this.value).toFixed(2);
+        });
+
+        var myModal = new bootstrap.Modal(document.getElementById('myModalEquipo'), {
+                keyboard: false,
+                backdrop: 'static',
+                });
+
+        $('.select2').select2({
+            theme: "bootstrap4",
+            language: 'es'
+        });
+
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+
+        $('#frmUser').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            submit_with_ajax(window.location.pathname, 'Alerta', '¿Estas seguro de guardar el registro?', parameters, function () {
+                Swal.fire({
+                    title: 'Alerta',
+                    text: 'Proceso Finalizado Correctamente',
+                    icon: 'success',
+                    onClose: () => {
+                        location.href = '{{ list_url }}';
+                    }
+                });
+            });
+        });
+
+        $('.btnAddEquipo').on('click', function () {
+            myModal.show();
+        });
+
+        $('#myModalEquipo').on('hidden.bs.modal', function (e) {
+            $('#frmEquipo').trigger('reset');
+        });
+
+        $('#frmEquipo').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            parameters.append('action', 'create_equipo');
+            submit_with_ajax(window.location.pathname, 'Notificación','¿Estas seguro de agregar el Equipo?', parameters, function (response) {
+                var newOption = new Option(response.Descripcion, response.id, false, true);
+                $('select[name="Equipo"]').append(newOption).trigger('change');
+                myModal.hide();
+            });
+        });
+    </script>
+{% endblock %}

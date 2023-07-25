@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="{{ action }}">
+        {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="form-row">
+            {% for ss in opciones %}
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 " style="text-align: center;">
+<!--                            <img src="{{ ss.Logo }}" class="img-fluid rounded-start">-->
+                            <div style="display: table; height: 15vh; width: 100%;">
+                              <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                                <img src="{{ ss.Logo }}" class="img-fluid rounded-start">
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3><b>{{ ss.Nombre }}</b></h3>
+                                <p class="card-text"><b>Contacto: </b>{{ ss.NombreContacto }}</p>
+                                <a href="/erp/equipos/roster/{{ ss.id }}/"><p class="card-text"><small class="text-body-secondary">Ver mas información</small></p></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+    <script>
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+    </script>
+{% endblock %}

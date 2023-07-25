@@ -1,0 +1,334 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+
+    <style>
+        table {
+            width: 100%;
+            border: 1px solid white;
+            }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid white;
+            border-collapse: collapse;
+            caption-side: bottom;
+            }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h3>La Liga...</h3>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            {% for emp in DataLiga %}
+                                <img src="{{ emp.Logo }}" style="width: 180px; height: 150px;">
+                            {% endfor %}
+                        </div>
+                        <div class="col-lg-9">
+                            <div style="display: table; height: 15vh; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <p class="card-text"><small class="text-body-secondary">La Liga de Softball de Arequipa es una competición deportiva que ha ganado popularidad y reconocimiento en los últimos años. En este resumen, destacaré los logros y los equipos participantes en los primeros cuatro torneos de la liga, que abarcan desde octubre de 2021 hasta la actualidad.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div style="display: table; height: 15vh; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <p class="card-text"><small class="text-body-secondary">En el primer torneo, que se llevó a cabo desde octubre de 2021 hasta diciembre del mismo año, participaron los equipos Indios, Amigos, Bravos, Tampa Bay, Piratas, Cerveceros y Reds. El equipo campeón fue Indios, demostrando su habilidad y destreza en el campo para superar a sus competidores.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <img src="{% static 'img/2021.jpg' %}" style="width: 180px; height: 120px;">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <img src="{% static 'img/campeon_2022_1.jpg' %}" style="width: 180px; height: 120px;">
+                        </div>
+                        <div class="col-lg-9">
+                            <div style="display: table; height: 15vh; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <p class="card-text"><small class="text-body-secondary">El segundo torneo, que se jugó desde enero de 2022 hasta mayo del mismo año, contó con la participación de los equipos Indios, Amigos, Bravos, Tampa Bay, Piratas, Cerveceros, Gigantes (antiguos Reds), Caimanes y Arepa Power. En esta ocasión, el equipo de Bravos se consagró campeón, mostrando un juego sólido y determinación durante toda la temporada.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div style="display: table; height: 15vh; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <p class="card-text"><small class="text-body-secondary">En el tercer torneo, que se desarrolló desde julio de 2022 hasta diciembre del mismo año, se sumaron a la competición los equipos Arepa Power, Bravos, Amigos, Gigantes, Guariqueños, Indios, Caimanes, Cerveceros, Mets, Piratas y Cachorros (antiguos Tampa Bay). El equipo de Amigos logró alzarse con el título de campeón en esta ocasión, demostrando un desempeño destacado y una gran cohesión como equipo.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <img src="{% static 'img/campeon_2022_2.jpg' %}" style="width: 180px; height: 120px;">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <img src="{% static 'img/campeon_2023_1.jpg' %}" style="width: 180px; height: 120px;">
+                        </div>
+                        <div class="col-lg-9">
+                            <div style="display: table; height: 15vh; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle;">
+                                    <p class="card-text"><small class="text-body-secondary">El cuarto torneo de la Liga de Softball de Arequipa comenzó en enero de este año 2023 y finalizo en Julio.  Los equipos participantes fueron White Sox, Bravos, Amigos, Viajeros, Guariqueños, Indios, Criollos, La Familia, Cardenales, Virgen de la Macarena y Cachorros. El equipo de Bravos se consagró nuevamente campeón, convirtiendose así en el primer BiCampeon de la Liga.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="card-text"><small class="text-body-secondary">En cuanto a la dirección y administración de la liga, inicialmente estuvo presidida por Jorgenis Contreras y Jose Perez. Sin embargo, actualmente, un grupo lidera la liga, con cada equipo teniendo un representante en la directiva. Esta estructura de liderazgo colaborativo asegura una gestión equitativa y un enfoque inclusivo para el desarrollo continuo de la liga.</small></p>
+                            <p class="card-text"><small class="text-body-secondary">La Liga de Softball de Arequipa se ha convertido en una plataforma emocionante para los amantes de este deporte en la región. A través de los diferentes torneos, los equipos han demostrado su talento, dedicación y espíritu competitivo, dejando un legado de emocionantes encuentros y rivalidades saludables en el softball local.</small></p>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h3>Estadísticas</h3>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="col-lg-12 col-12">
+                                <div class="small-box bg-dark">
+                                    <div class="inner">
+                                        <h4>Tabla de Posiciones</h4>
+                                        </br>
+                                        <div class="row">
+                                            <div class="col-lg-4" style="text-align: center;"><b>Equipos</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>JJ</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>JG</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>JP</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>JE</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>Ptos.</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>CF</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>JC</b></div>
+                                            <div class="col-lg-1" style="text-align: center;"><b>AVG</b></div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        {% for p12 in Tabla %}
+                                            <div class="row">
+                                                <div class="col-lg-4"><img src="{{ p12.Logo }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p12.Nombre }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.Jugados }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.Ganados }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.Perdidos }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.Empatados }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.Puntos }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.Favor }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.Contra }}</div>
+                                                <div class="col-lg-1" style="text-align: center;">{{ p12.AVG }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="col-lg-12 col-12">
+                                <div class="small-box bg-dark">
+                                    <div class="inner">
+                                        <h4>Lideres</h4>
+                                        </br>
+                                        <div class="inner">
+                                            <b>Bateo</b>
+                                            {% for p17 in dataLiderBateo %}
+                                                <div class="row">
+                                                    <div class="col-lg-3"><img src="{{ p17.Foto }}" class="img-fluid rounded-start" style="width: 80px; height: 40px;"></div>
+                                                    <div class="col-lg-9">
+                                                        <small><b>{{ p17.Nombres }} {{ p17.ApellidoPaterno }}</b></br>
+                                                        {{ p17.Equipo }}</br>
+                                                        <b>AVG: {{ p17.AVG }}</b></br></small>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="inner">
+                                            <b>HomeRun</b>
+                                            {% for p15 in dataLiderHR %}
+                                                <div class="row">
+                                                    <div class="col-lg-3"><img src="{{ p15.Foto }}" class="img-fluid rounded-start" style="width: 80px; height: 40px;"></div>
+                                                    <div class="col-lg-9">
+                                                        <small><b>{{ p15.Nombres }} {{ p15.ApellidoPaterno }}</b></br>
+                                                        {{ p15.Equipo.Nombre }}</br>
+                                                        <b>{{ p15.BAT_HR }} HomeRuns</b></br></small>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="inner">
+                                            <b>Impulsadas</b>
+                                            {% for p14 in dataLiderImpulsadas %}
+                                                <div class="row">
+                                                    <div class="col-lg-3"><img src="{{ p14.Foto }}" class="img-fluid rounded-start" style="width: 80px; height: 40px;"></div>
+                                                    <div class="col-lg-9">
+                                                        <small><b>{{ p14.Nombres }} {{ p14.ApellidoPaterno }}</b></br>
+                                                        {{ p14.Equipo.Nombre }}</br>
+                                                        <b>{{ p14.BAT_CI }} Carreras Impulsadas</b></br></small>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="inner">
+                                            <b>Juegos Ganados</b>
+                                            {% for p16 in dataLiderGanados %}
+                                                <div class="row">
+                                                    <div class="col-lg-3"><img src="{{ p16.Foto }}" class="img-fluid rounded-start" style="width: 80px; height: 40px;"></div>
+                                                    <div class="col-lg-9">
+                                                        <small><b>{{ p16.Nombres }} {{ p16.ApellidoPaterno }}</b></br>
+                                                        {{ p16.Equipo.Nombre }}</br>
+                                                        <b>{{ p16.PIT_Ganados }} Juegos Ganados</b></br></small>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="inner">
+                                            <b>StrikeOuts</b>
+                                            {% for p13 in dataLiderKO %}
+                                                <div class="row">
+                                                    <div class="col-lg-3"><img src="{{ p13.Foto }}" class="img-fluid rounded-start" style="width: 80px; height: 40px;"></div>
+                                                    <div class="col-lg-9">
+                                                        <small><b>{{ p13.Nombres }} {{ p13.ApellidoPaterno }}</b></br>
+                                                        {{ p13.Equipo.Nombre }}</br>
+                                                        <b>{{ p13.PIT_K }} StrikeOuts</b></br></small>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if CantJuegosAnteriores > 0 %}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-lg-12 col-12">
+                                    <div class="small-box bg-dark">
+                                        <div class="inner">
+                                            <h4>Ultimos Resultados - Jornada {{ FechaJuegosAnteriores }}</h4>
+                                            <div class="inner">
+                                                <div class="row">
+                                                    {% for sj in JuegosAnteriores %}
+                                                        <div class="col-sm-2">
+                                                            <div class="col-lg-12 col-12">
+                                                                <div class="small-box bg-dark">
+                                                                    <div class="inner">
+                                                                        <b>{{ sj.Horario.Descripcion }} </b>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8"><img src="{{ sj.LogoVisitante }}" class="img-circle" style="width: 40px; height: 40px;"></div>
+                                                                            <div class="col-lg-4" style="text-align: center;">{{ sj.CarrerasVisitante }}</div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8"><img src="{{ sj.LogoHomeClub }}" class="img-circle" style="width: 40px; height: 40px;"></div>
+                                                                            <div class="col-lg-4" style="text-align: center;">{{ sj.CarrerasHomeClub }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if CantProximosJuegos > 0 %}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-lg-12 col-12">
+                                    <div class="small-box bg-dark">
+                                        <div class="inner">
+                                            <h4>Proximos Juegos - Jornada {{ FechaProximosJuegos }}</h4>
+                                            <div class="inner">
+                                                <div class="row">
+                                                    {% for sja in ProximosJuegos %}
+                                                        <div class="col-sm-2">
+                                                            <div class="col-lg-12 col-12">
+                                                                <div class="small-box bg-dark">
+                                                                    <div class="inner">
+                                                                        <b>{{ sja.Horario.Descripcion }} </b>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12"><img src="{{ sja.LogoVisitante }}" class="img-circle" style="width: 40px; height: 40px;"></div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12"><img src="{{ sja.LogoHomeClub }}" class="img-circle" style="width: 40px; height: 40px;"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <a href="{% url 'estadisticas' %}" class="small-box-footer">Ver Mas <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h3>Noticias</h3>
+                    {% for ss in galeria %}
+                        <div class="row">
+                            <div class="col-lg-3"><img src="{{ ss.Foto }}" style="width: 150px; height: 150px;"></div>
+                            <div class="col-lg-9">
+                                <p class="card-text">{{ ss.Descripcion }}</p>
+                                <p class="card-text"><small class="text-body-secondary">Equipo {{ ss.Equipo.Nombre }}</small></p>
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                </div>
+                <a href="{% url 'erp:galeria_list' %}" class="small-box-footer">Ver Mas <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h3>Entrevistas</h3>
+                    {% for enttre in entrevistas %}
+                        <div class="row">
+                            <div class="col-lg-3"><video controls width="150" height="150"><source src="{{ enttre.Video }}" type="video/mp4"></video></div>
+                            <div class="col-lg-9"><p class="card-text">{{ enttre.Descripcion }}</p></div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                </div>
+                <a href="{% url 'erp:entrevistas_list' %}" class="small-box-footer">Ver Mas <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

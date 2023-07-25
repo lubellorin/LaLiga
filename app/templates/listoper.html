@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/jquery.dataTables.min.css' %}"/>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+<!--    <script src="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css"></script>-->
+<!--    <script src="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css"></script>-->
+
+    <script src="{% static 'lib/moment-2.25.3/moment.js' %}"></script>
+    <script src="{% static 'lib/daterangepicker-3.1/spanish.js' %}"></script>
+    <script src="{% static 'lib/daterangepicker-3.1/daterangepicker.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'lib/daterangepicker-3.1/daterangepicker.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/buttons-1.6.1/css/buttons.bootstrap.min.css' %}"/>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/buttons-1.6.1/js/dataTables.buttons.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/jszip-2.5.0/jszip.min.js' %}" type="text/javascript"></script>
+<!--    <script src="{% static 'lib/datatables-1.10.20/plugins/pdfmake-0.1.36/pdfmake.min.js' %}" type="text/javascript"></script>-->
+    <script src="{% static 'lib/datatables-1.10.20/plugins/pdfmake-0.1.36/vfs_fonts.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/buttons-1.6.1/js/buttons.html5.min.js' %}" type="text/javascript"></script>
+
+    <style>
+        thead th { text-align:center; vertical-align:middle; background:#343A40; color:white}
+    </style>
+
+    {% block head_list %}
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="card card-dark">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-search"></i>
+                {{ title }}
+            </h3>
+        </div>
+        <div class="card-body">
+            <!--
+            <form id="formFecha">
+                <table>
+                    <tr>
+                        <td><input type="text" class="form-control form-control-sm" id='buscar_inicio' onfocus="(this.type='date')" onblur="(this.type='text')" placeholder='Fecha Inicio' value="{{ inicio }}"></td>
+                        <td><input type="text" class="form-control form-control-sm" id='buscar_fin' onfocus="(this.type='date')" onblur="(this.type='text')" placeholder='Fecha fin' value="{{ fin }}"></td>
+                        <td><input type='button' id="btn_search" value="Buscar" class="btn btn-primary btn-sm"></td>
+                    </tr>
+                </table>
+            </form>
+            <hr>
+            -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>Rango de Fechas:</label>
+                        <input type="text" class="form-control" name="date_range" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <table class="table display cell-border" id="data">
+                <thead>
+                {% block columns %}
+
+                {% endblock %}
+                </thead>
+                <tbody>
+                {% block rows %}
+
+                {% endblock %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            {% block buttons_list %}
+                <a href="{{ create_url }}" class="btn btn-primary btn-flat btnTest">
+                    <i class="fas fa-plus"></i> Nuevo registro
+                </a>
+                <a href="{{ list_url }}" class="btn btn-success btn-flat">
+                    <i class="fas fa-sync"></i> Actualizar
+                </a>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="application/javascript">
+        $(function () {
+            $('#data').DataTable({
+                responsive: true,
+                autoWidth: false
+            });
+        });
+    </script>
+{% endblock %}

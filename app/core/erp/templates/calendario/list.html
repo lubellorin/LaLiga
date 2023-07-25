@@ -1,0 +1,352 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/jquery.dataTables.min.css' %}"/>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/buttons-1.6.1/css/buttons.bootstrap.min.css' %}"/>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/buttons-1.6.1/js/dataTables.buttons.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/jszip-2.5.0/jszip.min.js' %}" type="text/javascript"></script>
+<!--    <script src="{% static 'lib/datatables-1.10.20/plugins/pdfmake-0.1.36/pdfmake.min.js' %}" type="text/javascript"></script>-->
+    <script src="{% static 'lib/datatables-1.10.20/plugins/pdfmake-0.1.36/vfs_fonts.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/buttons-1.6.1/js/buttons.html5.min.js' %}" type="text/javascript"></script>
+
+    <style>
+        thead th { text-align:center; vertical-align:middle; background:#343A40; color:white}
+    </style>
+
+    {% block head_list %}
+
+    {% endblock %}
+
+{% endblock %}
+{% block content %}
+    {% csrf_token %}
+    <input type="hidden" name="action" value="{{ action }}">
+    {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="card card-dark">
+        <div class="card-header"><h3 class="card-title"><i class="fa-solid fa-calendar-week"></i> {{ title }}</h3></div>
+        <div class="card-body">
+            <form method="post" action="." enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Seleccionar Temporada:</label>
+                        <select name="temporada" class="form-control select2" style="width: 100%" required id="id_temporada">
+                            {% for ListTemporada in Temporadas %}
+                                {% if ListTemporada.Activo == "SI" %}
+                                    <option value="{{ ListTemporada.id }}" selected>{{ ListTemporada.Descripcion }}</option>
+                                {% else %}
+                                    <option value="{{ ListTemporada.id }}">{{ ListTemporada.Descripcion }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Seleccionar Fecha:</label>
+                        <select name="fechas" class="form-control select2" style="width: 100%" required id="id_fechas">
+                            <option value="0" selected>---------</option>
+                            {% for ListFechas in Fechas %}
+                                <option value="{{ ListFechas.Fecha }}">{{ ListFechas.Fecha }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Seleccionar Equipo:</label>
+                        <select name="equipo" class="form-control select2" style="width: 100%" required id="id_equipo">
+                            <option value="0" selected>---------</option>
+                            {% for ListEquipos in ListadoEquipos %}
+                                <option value="{{ ListEquipos.id }}">{{ ListEquipos.Descripcion }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div id="contenedor">
+                    {% for sf in FechasCalendario %}
+                        <div class="card card-dark">
+                            <div class="card-header"><h3 class="card-title"><i class="fa-solid fa-calendar-week"></i> Juegos del Dia {{ sf.Fecha }}</h3></div>
+                            <div class="card-body">
+                                <div class="row">
+                                    {% for sj in sf.Juegos %}
+                                        <div class="col-sm-2">
+                                            <div class="col-lg-12 col-12">
+                                                <div class="small-box bg-dark">
+                                                    <div class="inner">
+                                                        <b>Hora: {{ sj.Horario.Descripcion }} </b>
+                                                        <div class="dropdown-divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-lg-8"><img src="{{ sj.LogoVisitante }}" class="img-circle" style="width: 40px; height: 40px;"> <b>{{ sj.Visitante }}</b></div>
+                                                            <div class="col-lg-4" style="text-align: center;">{{ sj.CarrerasVisitante }}</div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-8"><b><img src="{{ sj.LogoHomeClub }}" class="img-circle" style="width: 40px; height: 40px;"> {{ sj.HomeClub }}</b></div>
+                                                            <div class="col-lg-4" style="text-align: center;">{{ sj.CarrerasHomeClub }}</div>
+                                                        </div>
+                                                        <div class="dropdown-divider"></div>
+                                                        <b>PG: </b>{{ sj.PitcherGanador }}</br>
+                                                        <b>PP: </b>{{ sj.PitcherPerdedor }}</br>
+                                                        <b>MVP: </b>{{ sj.MVP }}
+                                                        {% if request.session.group.name == "Administrador" %}
+                                                            <div class="dropdown-divider"></div>
+                                                            <a href="/erp/calendario/update/{{ sj.id }}/"><i class="fas fa-edit"></i> Actualizar</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            {% block buttons_list %}
+                {% if request.session.group.name == "Administrador" %}
+                    <button class="btn btn-primary btn-flat btnAddJornada"><i class="fas fa-plus"></i> Nueva Jornada</button>
+                {% endif %}
+                <a href="{{ calendario_list }}" class="btn btn-success btn-flat"><i class="fas fa-sync"></i> Actualizar</a>
+            {% endblock %}
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModalAddJornada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="frmAddJornada" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><b><i class="fa-solid fa-calendar-plus"></i> Agregar Jornada</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="col-sm-12">
+                                <label>Estadio:</label><div class="col-sm-12">{{ frmAddJornada.Estadio }}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <label>Fecha:</label><div class="col-sm-12">{{ frmAddJornada.Fecha }}</div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Hora:</label><div class="col-sm-12">{{ frmAddJornada.Horario }}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <label>Visitante:</label><div class="col-sm-12">{{ frmAddJornada.Visitante }}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <label>HomeClub:</label><div class="col-sm-12">{{ frmAddJornada.HomeClub }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="fas fa-save"></i> Guardar Registro</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        function CambiaEquipo() {
+            li_equipo = $('select[name="equipo"]').val();
+            li_temporada = $('select[name="temporada"]').val();
+            lv_fechas = $('select[name="fechas"]').val();
+            if(li_equipo == ''){
+                li_equipo = 0;
+            }
+            if(li_temporada == ''){
+                li_temporada = 0;
+            }
+            if(lv_fechas == ''){
+                lv_fechas = 0;
+            }
+            var perfil = '{{ request.session.group.name }}';
+            console.log(perfil);
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: {
+                    'action': 'searchdata',
+                    'idEquipo': li_equipo,
+                    'Temporada': li_temporada,
+                    'Fecha': lv_fechas,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    var fechas = response;
+                    console.log(fechas);
+                    $("#contenedor").empty();
+                    for (var i = 0; i < fechas.length; i++) {
+                        var item = fechas[i];
+                        var juegos = fechas[i]['Juegos'];
+                        var muestraJuegos = '';
+                        for (var k = 0; k < juegos.length; k++) {
+                            var itemJuegos = juegos[k];
+                            var play1 = '<div class="col-sm-2"><div class="col-lg-12 col-12"><div class="small-box bg-dark"><div class="inner"><b>Hora: ' + itemJuegos.Horario.Descripcion + ' </b><div class="dropdown-divider"></div>';
+                            var play2 = '<div class="row"><div class="col-lg-8"><img src="' + itemJuegos.LogoVisitante + '" class="img-circle" style="width: 40px; height: 40px;"> <b>' + itemJuegos.Visitante + '</b></div>';
+                            var play3 = '<div class="col-lg-4" style="text-align: center;">' + itemJuegos.CarrerasVisitante + '</div></div><div class="row"><div class="col-lg-8"><b><img src="' + itemJuegos.LogoHomeClub + '" class="img-circle" style="width: 40px; height: 40px;"> ' + itemJuegos.HomeClub + '</b></div>';
+                            var play4 = '<div class="col-lg-4" style="text-align: center;">' + itemJuegos.CarrerasHomeClub + '</div></div><div class="dropdown-divider"></div><b>P. Ganador: </b>' + itemJuegos.PitcherGanador + '</br><b>P. Perdedor: </b>' + itemJuegos.PitcherPerdedor + '</br><b>MVP: </b>' + itemJuegos.MVP;
+                            if (perfil=='Administrador') {
+                                var play5 = '<div class="dropdown-divider"></div><a href="#"><i class="fas fa-edit"></i> Actualizar</a></div></div></div></div>';
+                            } else {
+                                var play5 = '</div></div></div></div>';
+                            }
+                            muestraJuegos = muestraJuegos + play1 + play2 + play3 + play4 + play5;
+                        }
+                        var nuevoDiv = $('<div class="card card-dark"></div>').html('<div class="card-header"><h3 class="card-title"><i class="fa-solid fa-calendar-week"></i> Juegos del Dia ' + item.Fecha + '</h3></div><div class="card-body"><div class="row">' + muestraJuegos + '</div></div>');
+                        $('#contenedor').append(nuevoDiv);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Maneja los errores de la solicitud AJAX si es necesario
+                    console.error(error);
+                }
+            });
+        };
+
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+
+        var select_fechas = $('select[name="fechas"]');
+        var select_equipos = $('select[name="equipo"]');
+        var select_homeclub = $('select[name="HomeClub"]');
+
+        $('#Fecha').datetimepicker({
+            format: 'YYYY-MM-DD',
+            date: moment().format("YYYY-MM-DD"),
+            locale: 'es',
+            maxDate: moment().format("YYYY-MM-DD"),
+        });
+
+        $('select[name="temporada"]').on('change', function () {
+            var id = $(this).val();
+
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: {
+                    'action': 'search_fechas',
+                    'id': id
+                },
+                dataType: 'json',
+            }).done(function (data) {
+                if (!data.hasOwnProperty('error')) {
+                    select_fechas.html('').select2({
+                        theme: "bootstrap4",
+                        language: 'es',
+                        data: data
+                    });
+                    CambiaEquipo();
+                    return false;
+                }
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.error,
+                    icon: 'error'
+                });
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }).always(function (data) {
+                //select_products.html(options);
+            });
+        });
+
+        $('select[name="fechas"]').on('change', function () {
+            CambiaEquipo();
+        });
+
+        $('select[name="equipo"]').on('change', function () {
+            CambiaEquipo();
+        });
+
+        $('select[name="Visitante"]').on('change', function () {
+            var id = $(this).val();
+
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: {
+                    'action': 'search_homeclub',
+                    'id': id
+                },
+                dataType: 'json',
+            }).done(function (data) {
+                if (!data.hasOwnProperty('error')) {
+                    select_homeclub.html('').select2({
+                        theme: "bootstrap4",
+                        language: 'es',
+                        data: data
+                    });
+                    return false;
+                }
+                Swal.fire({
+                    title: 'Error!',
+                    text: data.error,
+                    icon: 'error'
+                });
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }).always(function (data) {
+                //select_products.html(options);
+            });
+        });
+
+        $('.btnAddJornada').on('click', function () {
+            $('#myModalAddJornada').modal('show');
+        });
+
+        $('#myModalAddJornada').on('hidden.bs.modal', function (e) {
+            $('#frmAddJornada').trigger('reset');
+        });
+
+        $('#frmAddJornada').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            parameters.append('action', 'create_jornada');
+            parameters.append('Calendario', $('select[name="temporada"]').val());
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de agregar la Jornada?', parameters, function (response) {
+                location.href = '{{ calendario_list }}';
+                $('#myModalAddJornada').modal('hide');
+            });
+        });
+    </script>
+{% endblock %}

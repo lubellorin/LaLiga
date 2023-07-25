@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="icon" href="{% static 'img/empty.png' %}" type="image/png"/>
+    <title>Inmobiliaria EL Billon - Residencial Ciudad Verde</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'lib/new/css/bootstrap.css' %}" rel="stylesheet" />
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'lib/adminlte-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- FONTAWESOME STYLES-->
+    <link href="{% static 'lib/new/css/font-awesome.css' %}" rel="stylesheet" />
+    !-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'lib/adminlte-3.0.4/plugins/font-awesome-5.11.1/css/all.min.css' %}">
+    <!-- fontawesomefree -->
+    <script src="https://kit.fontawesome.com/17190dec2a.js" crossorigin="anonymous"></script>
+    <!--CUSTOM BASIC STYLES-->
+    <link href="{% static 'lib/new/css/basic.css' %}" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="{% static 'lib/new/css/custom.css' %}" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- JQUERY SCRIPTS -->
+    <script src="{% static 'lib/new/js/jquery-1.10.2.js' %}"></script>
+    <!-- jQuery -->
+    <script src="{% static 'lib/adminlte-3.0.4/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'lib/new/js/bootstrap.js' %}"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="{% static 'lib/new/js/jquery.metisMenu.js' %}"></script>
+       <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'lib/new/js/custom.js' %}"></script>
+
+    <!-- AdminLTE App -->
+    <script src="{% static 'lib/adminlte-3.0.4/js/adminlte.min.js' %}"></script>
+    <!-- Sweetalert2 -->
+    <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+        <!-- Jquery Confirm -->
+    <link rel="stylesheet" href="{% static 'lib/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}">
+    <script src="{% static 'lib/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>
+    <!-- My css -->
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <!-- fontawesomefree -->
+    <script src="https://kit.fontawesome.com/17190dec2a.js" crossorigin="anonymous"></script>
+
+        <!-- Functions -->
+    <script src="{% static 'js/functions.js' %}"></script>
+            <!--
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/Menu/css/iDashboard.css' %}" />
+    -->
+    <script src="{% static 'lib/moment-2.25.3/moment-with-locales.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <link href="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet"/>
+
+        <!-- Select2 -->
+    <link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+    <script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+    <script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+
+    <!-- Block head -->
+    {% block head %}
+
+    {% endblock %}
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'erp:dashboard' %}"><img src="{% static 'img/logo.png' %}" class="img-thumbnail" height="30" width="30"/> Inmobiliaria EL Billon</a>
+            </div>
+            <div class="header-right">
+                <a href="message-task.html" class="btn btn-info" title="Notificaciones Nuevas"><b>30 </b><i class="fa fa-envelope-o fa-2x"></i></a>
+            </div>
+        </nav>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <!--
+                    <li>
+                        <div class="user-img-div">
+                            <img src="assets/img/user.png" class="img-thumbnail"/>
+                            <div class="inner-text">Jhon Deo Alex</div>
+                        </div>
+                    </li>
+                    -->
+                    <li><a class="active-menu" href="{% url 'erp:dashboard' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-boxes-packing"></i>  Administración <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{% url 'erp:client_list' %}"><i class="fa-regular fa-address-book"></i> Clientes</a></li>
+                            <li><a href="{% url 'erp:clientesprospectos_list' %}"><i class="fa-solid fa-user-plus"></i> Clientes Prospectos</a></li>
+                            <li><a href="{% url 'erp:listanegra_list' %}"><i class="fa-solid fa-clipboard-list"></i> Lista Negra de Clientes</a></li>
+                            <li><a href="{% url 'erp:proveedores_list' %}"><i class="fa-solid fa-address-book"></i> Proveedores</a></li>
+                            <li><a href="{% url 'erp:cuentasxcobrar_list' %}"><i class="fa-solid fa-book"></i> Cuentas por Cobrar</a></li>
+                            <li><a href="#"><i class="fa-solid fa-briefcase"></i></i> Cuentas por Pagar</a></li>
+                            <li><a href="{% url 'erp:movefectivo_list' %}"><i class="fa-solid fa-money-bill-transfer"></i> Movimientos de Efectivo</a></li>
+                            <li><a href="{% url 'erp:ctasbancarias_list' %}"><i class="fa-solid fa-vault"></i> Movimientos Ctas. Bancarias</a></li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa-solid fa-dolly"></i>  Operaciones <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{% url 'erp:dashboard' %}" class="dropdown-item"><i class="fa-solid fa-tent-arrow-left-right"></i> Ventas</a></li>
+                            <li><a href="{% url 'erp:gastos_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                            <li><a href="{% url 'erp:notascredito_create' %}" class="dropdown-item"><i class="fa-solid fa-diagram-next"></i> Notas de Credito</a></li>
+                            <li><a href="{% url 'erp:lotes_list' %}" class="dropdown-item"><i class="fa-solid fa-box-archive"></i> Productos</a></li>
+                            <!--<li><a href="{% url 'erp:ventas_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-shopping"></i> Consulta Ventas</a></li>
+                            <li><a href="{% url 'erp:compras_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-arrow-down"></i> Compras</a></li>
+                            <li><a href="{% url 'erp:devolucioncompra_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Devoluciones de Compras</a></li>-->
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-clock"></i> Asistencia</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-magnifying-glass"></i>  Consultas <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{% url 'erp:ventas_consulta' %}" class="dropdown-item"><i class="fa-solid fa-cart-shopping"></i> Ventas</a></li>
+                            <li><a href="{% url 'erp:ventas_vendedores' %}" class="dropdown-item"><i class="fa-solid fa-user-tie"></i> Resumen Vendedores</a></li>
+                            <li><a href="{% url 'erp:ventas_detalle' %}" class="dropdown-item"><i class="fa-solid fa-user-tie"></i> Detalle por Vendedor</a></li>
+                            <li><a href="{% url 'erp:gastos_consulta' %}" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                            <li><a href="{% url 'erp:notascredito_consulta' %}" class="dropdown-item"><i class="fa-solid fa-diagram-next"></i> Notas de Credito</a></li>
+                            <li><a href="{% url 'erp:reservas_consulta' %}" class="dropdown-item"><i class="fa-solid fa-receipt"></i> Reservas</a></li>
+                            <li><a href="{% url 'erp:cuotas_consulta' %}" class="dropdown-item"><i class="fa-solid fa-file-invoice-dollar"></i> Cuotas/Pagos Pendientes</a></li>
+                            <li><a href="{% url 'erp:comentarios_list' %}" class="dropdown-item"><i class="fa-solid fa-message"></i> Comentarios</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-gears"></i>  Configuración <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{% url 'erp:empresa_update' 1 %}" class="dropdown-item"><i class="fa-solid fa-hotel"></i> Empresa</a></li>
+                            <li><a href="{% url 'erp:monedas_list' %}" class="dropdown-item"><i class="fa-solid fa-money-bill-1"></i> Monedas</a></li>
+                            <li><a href="{% url 'erp:bancos_list' %}" class="dropdown-item"><i class="fa-solid fa-building-columns"></i> Bancos</a></li>
+                            <li><a href="{% url 'erp:ctasbancarias_listc' %}" class="dropdown-item"><i class="fa-solid fa-money-check-dollar"></i> Cuentas Bancarias</a></li>
+                            <li><a href="{% url 'erp:cajas_list' %}" class="dropdown-item"><i class="fa-solid fa-cash-register"></i> Cajas</a></li>
+                            <li><a href="{% url 'erp:formaspago_list' %}" class="dropdown-item"><i class="fa-solid fa-credit-card"></i> Métodos de Pago</a></li>
+                            <li><a href="{% url 'erp:unidades_list' %}" class="dropdown-item"><i class="fa-solid fa-pen-ruler"></i> Unidades</a></li>
+                            <li><a href="{% url 'erp:depositos_list' %}" class="dropdown-item"><i class="fa-solid fa-warehouse"></i> Depositos</a></li>
+                            <li><a href="{% url 'erp:envios_list' %}" class="dropdown-item"><i class="fa-solid fa-truck"></i> Empresas Envíos</a></li>
+                            <li><a href="{% url 'user:user_list' %}" class="dropdown-item"><i class="fas fa-users"></i> Usuarios</a></li>
+                            <li><a href="{% url 'erp:category_list' %}" class="dropdown-item"><i class="fa-solid fa-rectangle-list"></i> Categorías</a></li>
+                            <li><a href="{% url 'erp:gastos_conf' %}" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                            <li><a href="{% url 'erp:subgastos_list' %}" class="dropdown-item"><i class="fa-solid fa-dolly"></i> SubGastos</a></li>
+                            <li><a href="{% url 'erp:transacciones_list' %}" class="dropdown-item"><i class="fa-solid fa-money-bill-transfer"></i> Transacciones</a></li>
+                            <li><a href="{% url 'erp:conceptos_list' %}" class="dropdown-item"><i class="fa-solid fa-book-atlas"></i> Conceptos de Movimientos</a></li>
+                            <li><a href="{% url 'erp:tiposdocumentos_list' %}" class="dropdown-item"><i class="fa-solid fa-file-lines"></i> Tipos de Documentos</a></li>
+                            <li><a href="{% url 'erp:identifica_list' %}" class="dropdown-item"><i class="fa-solid fa-address-card"></i> Tipos de Identificación</a></li>
+                            <li><a href="{% url 'erp:Importar_list' %}" class="dropdown-item"><i class="fa-solid fa-file-arrow-up"></i> Importar Datos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'erp:soporte_list' %}"><i class="fa-solid fa-computer"></i> Soporte</a></li>
+                    <li>
+                        <a href="#"><img src="{{ request.user.get_image }}" class="img-circle d-block mx-auto" style="width: 30px; height: 30px;" alt="User Image"> {{ request.user.get_full_name }} <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{% url 'user:user_profile' %}"><i class="fas fa-edit mr-2"></i> Editar Usuario</a></li>
+                            <li><a href="{% url 'user:user_change_password' %}"><i class="fas fa-lock mr-2"></i> Editar password</a></li>
+                            {% if request.user.groups.all %}
+                                {% if request.session.group  %}
+                                    <li><a href="#"><i class="fa-solid fa-user-group"></i> Perfil Seleccionado:  {{ request.session.group }}</a></li>
+                                {% endif %}
+                                {% for g in request.user.groups.all %}
+                                    {% if g.id != request.session.group.id %}
+                                        <li><a href="{% url 'user:user_change_group' g.id %}"><i class="fa-solid fa-user-group"></i> Perfil: {{ g.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <li><a href="{% url 'logout' %}"><i class="fas fa-power-off"></i> Salir</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="header-right">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'erp:dashboard' %}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ list_url }}">{{ entity }}</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+                <!--/.Row-->
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <div id="footer-sec">
+        {% include 'footer.html' %}
+    </div>
+    <!-- /. FOOTER  -->
+</body>
+</html>

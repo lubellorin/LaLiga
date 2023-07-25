@@ -1,0 +1,194 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="card card-dark">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fa-solid fa-percent"></i> {{ title }}</h3>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="{{ action }}">
+            {% if form.errors %}
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="form-row">
+                <div class="col-md-2" style="text-align: center;">
+                    <div style="display: table; height: 15vh; width: 100%;">
+                        <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                            <img src="{{ FotoJugador }}" class="img-fluid rounded-start" style="width: 200px; height: 200px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h1><b>{{ NombreCompleto }}</b></h1>
+                        <b>Nro. Ficha: </b>{{ Ficha }}</br>
+                        <b>Juegos Jugados: </b>{{ JuegosJugados }}</br>
+                        <b>AVG: </b>{{ AVG }}</br>
+                    </div>
+                </div>
+                <div class="col-md-2" style="text-align: center;">
+                    <div style="display: table; height: 15vh; width: 100%;">
+                        <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                            <img src="{{ FotoEquipo }}" class="img-fluid rounded-start" style="width: 200px; height: 200px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-row">
+                <div class="col-sm-4">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fa-solid fa-percent"></i> Bateo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Veces al Bate: </b></div>
+                                <div class="col-sm-2">{{ BAT_VB }}</div>
+                                <div class="col-sm-4"><b>Bases por Bolas: </b></div>
+                                <div class="col-sm-2">{{ BAT_BB }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Hits: </b></div>
+                                <div class="col-sm-2">{{ BAT_H }}</div>
+                                <div class="col-sm-4"><b>StrikeOuts: </b></div>
+                                <div class="col-sm-2">{{ BAT_K }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Dobles: </b></div>
+                                <div class="col-sm-2">{{ BAT_2B }}</div>
+                                <div class="col-sm-4"><b>Sacrifice Fly:</b></div>
+                                <div class="col-sm-2">{{ BAT_SF }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Triples: </b></div>
+                                <div class="col-sm-2">{{ BAT_3B }}</div>
+                                <div class="col-sm-4"><b>Bases Robadas:</b></div>
+                                <div class="col-sm-2">{{ BAT_BR }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Home Run: </b></div>
+                                <div class="col-sm-2">{{ BAT_HR }}</div>
+                                <div class="col-sm-4"><b>HDEB:</b></div>
+                                <div class="col-sm-2">{{ BAT_HDEB }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>C. Impulsadas: </b></div>
+                                <div class="col-sm-2">{{ BAT_CI }}</div>
+                                <div class="col-sm-4"><b>C. Anotadas:</b></div>
+                                <div class="col-sm-2">{{ BAT_CA }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fa-solid fa-percent"></i> Pitcheo</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Innins Lanzados: </b></div>
+                                <div class="col-sm-2">{{ PIT_IP }}</div>
+                                <div class="col-sm-4"><b>Boletos Propinados: </b></div>
+                                <div class="col-sm-2">{{ PIT_BB }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Carreras Permitidos: </b></div>
+                                <div class="col-sm-2">{{ PIT_CP }}</div>
+                                <div class="col-sm-4"><b>Hits Permitidos: </b></div>
+                                <div class="col-sm-2">{{ PIT_HP }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Carreras Sucias: </b></div>
+                                <div class="col-sm-2">{{ PIT_CS }}</div>
+                                <div class="col-sm-4"><b>Dobles Permitidos: </b></div>
+                                <div class="col-sm-2">{{ PIT_2B }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>KO Propinados: </b></div>
+                                <div class="col-sm-2">{{ PIT_K }}</div>
+                                <div class="col-sm-4"><b>Triples Permitidos: </b></div>
+                                <div class="col-sm-2">{{ PIT_3B }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Efectividad: </b></div>
+                                <div class="col-sm-2">{{ Efectividad }}</div>
+                                <div class="col-sm-4"><b>HomeRun Permitidos: </b></div>
+                                <div class="col-sm-2">{{ PIT_HR }}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Juegos Ganados: </b></div>
+                                <div class="col-sm-2">{{ PIT_Ganados }}</div>
+                                <div class="col-sm-4"><b>Juegos Perdidos: </b></div>
+                                <div class="col-sm-2">{{ PIT_Perdido }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fa-solid fa-percent"></i> Defensa</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-sm-4"><b>Asistencias: </b></div>
+                                <div class="col-sm-2">{{ Asistencia }}</div>
+                                <div class="col-sm-4"><b>Errores: </b></div>
+                                <div class="col-sm-2">{{ Error }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            {% block buttons_list %}
+                <a href="{{ list_url }}" class="btn btn-danger btn-flat"><i class="fas fa-times"></i> Cancelar</a>
+            {% endblock %}
+        </div>
+    </div>
+    <!-- Modal -->
+    <script>
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+
+        $('#Fecha').datetimepicker({
+            format: 'YYYY-MM-DD',
+            date: moment().format("YYYY-MM-DD"),
+            locale: 'es',
+            maxDate: moment().format("YYYY-MM-DD"),
+        });
+
+        $('.select2').select2({
+            theme: "bootstrap4",
+            language: 'es'
+        });
+    </script>
+{% endblock %}

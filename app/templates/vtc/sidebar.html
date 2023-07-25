@@ -1,0 +1,32 @@
+{% load static %}
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/" class="brand-link">
+            {% for emp in DataLiga %}
+                <img src="{{ emp.Logo }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="width: 40px; height: 50px;opacity: .8">
+                <span class="brand-text font-weight-light">{{ emp.Descripcion }}</span>
+            {% endfor %}
+        </a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                {% if request.session.group.name == "Administrador" %}
+                    <li class="nav-item"><a href="{% url 'erp:liga_update' 1 %}" class="nav-link"><i class="fa-sharp fa-solid fa-baseball-bat-ball"></i> <p>La Liga</p></a></li>
+                {% endif %}
+                <li class="nav-item"><a href="{% url 'erp:equipos_menu' %}" class="nav-link"><i class="fa-solid fa-people-group"></i> <p>Equipos</p></a></li>
+                <li class="nav-item"><a href="{% url 'estadisticas' %}" class="nav-link"><i class="fa-solid fa-chart-column"></i> <p>Estadísticas</p></a></li>
+                <li class="nav-item"><a href="{% url 'erp:calendario_list' %}" class="nav-link"><i class="fa-regular fa-calendar-days"></i> <p>Calendario</p></a></li>
+                {% if request.session.group.name == "Administrador" %}
+                    <li class="nav-item"><a href="{% url 'erp:equipos_list' %}" class="nav-link"><i class="fa-solid fa-people-group"></i> <p>Mtto. Equipos</p></a></li>
+                    <li class="nav-item"><a href="{% url 'user:user_list' %}" class="nav-link"><i class="fa-solid fa-users"></i> <p>Usuarios</p></a></li>
+                {% endif %}
+                <li class="nav-item"><a href="{% url 'erp:entrevistas_list' %}" class="nav-link"><i class="fa-regular fa-newspaper"></i> <p>Entrevistas</p></a></li>
+                <li class="nav-item"><a href="{% url 'erp:galeria_list' %}" class="nav-link"><i class="fa-solid fa-images"></i> <p>Noticias</p></a></li>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>

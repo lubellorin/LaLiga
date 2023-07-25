@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .img-invoice {
+            width: 80px;
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        .head {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        #invoice thead tr th {
+            text-align: left;
+            border-bottom: 1px solid black;
+            border-top: 1px solid black;
+            padding-top: 4px;
+        }
+
+        #invoice thead tr {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        #invoice tbody tr {
+            padding: 0;
+        }
+
+        .text-center{
+            text-align: center;
+        }
+
+        .vertical-align {
+            vertical-align: top; /* También puedes usar 'top' o 'bottom' según tus necesidades */
+        }
+    </style>
+    <body>
+        <p class="head">
+            <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                <h1>ROSTER</h1>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%; text-align: center"></th>
+                        <th style="width: 55%; text-align: center"></th>
+                        <th style="width: 30%; text-align: center"></th>
+                    </tr>
+                </thead>
+                {% for se in equipo %}
+                    <tbody>
+                            <tr>
+                                <td style=" text-align: center">
+                                    <img src="{{ se.Logo }}" class="img-invoice"></br>
+                                </td>
+                                <td>
+                                    <p class="card-text"><b>Nombre del Equipo: </b>{{ se.Nombre }}</p>
+                                    <p class="card-text"><b>Delegado: </b>{{ se.Delegado }}</p>
+                                    <p class="card-text"><b>Manager: </b>{{ se.Manager }}</p>
+                                </td>
+                                <td style="text-align: center">
+                                    {% for sl in Liga %}
+                                        <img src="{{ sl.Logo }}" class="img-invoice" style="width: 15%; text-align: center"></br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                    <tbody>
+                {% endfor %}
+            </table>
+            </br>
+            </br>
+            </br>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 20%; text-align: center"></th>
+                        <th style="width: 20%; text-align: center"></th>
+                        <th style="width: 20%; text-align: center"></th>
+                        <th style="width: 20%; text-align: center"></th>
+                        <th style="width: 20%; text-align: center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="vertical-align" style=" text-align: center">
+                            {% for sj1 in data1 %}
+                                <img src="{{ sj1.Foto }}" class="img-invoice"></br>
+                                <b>{{ sj1.NombreCompleto }}</b></br>
+                                <b>Nro. Ficha: </b>{{ sj1.Id }}</br>
+                                {{ sj1.Identificacion }}
+                                </br>
+                                </br>
+                            {% endfor %}
+                        </td>
+                        <td class="vertical-align" style=" text-align: center">
+                            {% for sj2 in data2 %}
+                                <img src="{{ sj2.Foto }}" class="img-invoice"></br>
+                                <b>{{ sj2.NombreCompleto }}</b></br>
+                                <b>Nro. Ficha: </b>{{ sj2.Id }}</br>
+                                {{ sj2.Identificacion }}
+                                </br>
+                                </br>
+                            {% endfor %}
+                        </td>
+                        <td class="vertical-align" style=" text-align: center">
+                            {% for sj3 in data3 %}
+                                <img src="{{ sj3.Foto }}" class="img-invoice"></br>
+                                <b>{{ sj3.NombreCompleto }}</b></br>
+                                <b>Nro. Ficha: </b>{{ sj3.Id }}</br>
+                                {{ sj3.Identificacion }}
+                                </br>
+                                </br>
+                            {% endfor %}
+                        </td>
+                        <td class="vertical-align" style=" text-align: center">
+                            {% for sj4 in data4 %}
+                                <img src="{{ sj4.Foto }}" class="img-invoice"></br>
+                                <b>{{ sj4.NombreCompleto }}</b></br>
+                                <b>Nro. Ficha: </b>{{ sj4.Id }}</br>
+                                {{ sj4.Identificacion }}
+                                </br>
+                                </br>
+                            {% endfor %}
+                        </td>
+                        <td class="vertical-align" style=" text-align: center">
+                            {% for sj5 in data5 %}
+                                <img src="{{ sj5.Foto }}" class="img-invoice"></br>
+                                <b>{{ sj5.NombreCompleto }}</b></br>
+                                <b>Nro. Ficha: </b>{{ sj5.Id }}</br>
+                                {{ sj5.Identificacion }}
+                                </br>
+                                </br>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                <tbody>
+            </table>
+        </p>
+    </body>
+</html>

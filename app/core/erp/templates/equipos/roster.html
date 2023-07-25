@@ -1,0 +1,208 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="card card-dark">
+        {% for ss in equipos %}
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-list-ol"></i> {{ title }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ action }}">
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                            <ul>
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div class="form-row">
+                        <input type="hidden" name="Equipo_id" value="{{ ss.id }}">
+                        <div class="col-md-2" style="text-align: center;">
+                            <div style="display: table; height: 15vh; width: 100%;">
+                                <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                                    <img src="{{ ss.Logo }}" class="img-fluid rounded-start" style="width: 200px; height: 200px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <h1><b>{{ ss.Nombre }}</b></h1>
+                                <p class="card-text"><b>Delegado: </b>{{ ss.Delegado }}</p>
+                                <p class="card-text"><b>Manager: </b>{{ ss.Manager }}</p>
+                                <p class="card-text"><b>Contacto: </b>{{ ss.NombreContacto }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card card-dark">
+                        <div class="card-header"><h3 class="card-title"><i class="fa-solid fa-baseball-bat-ball"></i> Jugadores</h3></div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                {% for sj in jugadores %}
+                                    <div class="card mb-3" style="max-width: 540px;">
+                                        <div class="row g-0">
+                                            <div class="col-md-4 " style="text-align: center;">
+                                                <div style="display: table; height: 15vh; width: 100%;">
+                                                  <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                                                    <img src="{{ sj.Foto }}" class="img-fluid rounded-start">
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <input type="hidden" name="Jugador_id" value="{{ sj.id }}">
+                                                    <p class="card-text"><h3><b>{{ sj.NombreCompleto }}</b></h3></p>
+                                                    <b>Nro. Ficha: </b>{{ sj.id }}</br>
+                                                    <b>Nro. Identificación: </b>{{ sj.NroIdentificacion }}</br>
+                                                    <b>AVG: </b>{{ sj.AVG }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="/erp/jugadores/muestranros/{{ sj.id }}/" class="btn btn-dark btn-flat"><i class="fa-solid fa-percent"></i> Ver Estadisticas</a>
+                                            {% if request.session.group.name == "Administrador" %}
+                                                <a href="/erp/jugadores/ficha/{{ sj.id }}/" target="_blank" class="btn btn-dark btn-flat"><i class="fa-solid fa-print"></i> Imprimir</a>
+                                                <a href="/erp/jugadores/actualizanros/{{ sj.id }}/" class="btn btn-dark btn-flat"><i class="fa-solid fa-percent"></i> Actualizar</a>
+                                                <a href="/erp/jugadores/delete/{{ sj.id }}/" class="btn btn-danger btn-flat"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                            {% elif request.session.group.name == "Delegado" %}
+                                                {% if idEquipo == EquipoUsuario %}
+                                                    <a href="/erp/jugadores/delete/{{ sj.id }}/" class="btn btn-danger btn-flat"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                                {% endif %}
+                                                <a href="/erp/jugadores/ficha/{{ sj.id }}/" target="_blank" class="btn btn-dark btn-flat"><i class="fa-solid fa-print"></i> Imprimir</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                {% block buttons_list %}
+                    {% if request.session.group.name == "Administrador" %}
+                        <button class="btn btn-primary btn-flat btnAddJugador"><i class="fas fa-plus"></i> Nuevo Jugador</button>
+                        <a href="/erp/equipos/ficha/{{ ss.id }}/" target="_blank" class="btn btn-primary btn-flat"><i class="fa-solid fa-print"></i> Imprimir Roster</a>
+                    {% elif request.session.group.name == "Delegado" %}
+                        {% if idEquipo == EquipoUsuario %}
+                            <button class="btn btn-primary btn-flat btnAddJugador"><i class="fas fa-plus"></i> Nuevo Jugador</button>
+                        {% endif %}
+                        <a href="/erp/equipos/ficha/{{ ss.id }}/" target="_blank" class="btn btn-primary btn-flat"><i class="fa-solid fa-print"></i> Imprimir Roster</a>
+                    {% endif %}
+                    <a href="{{ roster_url }}" class="btn btn-success btn-flat"><i class="fas fa-sync"></i> Actualizar</a>
+                {% endblock %}
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModalAddJugador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form id="frmAddJugador" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <b><i class="fas fa-user-plus"></i> Agregar Jugador</b>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                <label>Tipo Identificación:</label><div class="col-sm-12">{{ frmAddJugador.TpIdentificacion }}</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Nro. Identificación:</label><div class="col-sm-12">{{ frmAddJugador.NroIdentificacion }}</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Fecha Nacimiento:</label><div class="col-sm-12">{{ frmAddJugador.FechaNacimiento }}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                <label>Nombres:</label><div class="col-sm-12">{{ frmAddJugador.Nombres }}</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Apellido Paterno:</label><div class="col-sm-12">{{ frmAddJugador.ApellidoPaterno }}</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Apellido Materno:</label><div class="col-sm-12">{{ frmAddJugador.ApellidoMaterno }}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                <label>Telefonos:</label><div class="col-sm-12">{{ frmAddJugador.Telefonos }}</div>
+                            </div>
+                            <div class="col-sm-8">
+                                <label>Foto:</label><div class="col-sm-12">{{ frmAddJugador.Foto }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-flat"><i class="fas fa-save"></i> Guardar Registro</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+
+        $('#Fecha').datetimepicker({
+            format: 'YYYY-MM-DD',
+            date: moment().format("YYYY-MM-DD"),
+            locale: 'es',
+            maxDate: moment().format("YYYY-MM-DD"),
+        });
+
+        $('.select2').select2({
+            theme: "bootstrap4",
+            language: 'es'
+        });
+
+        $('.btnAddJugador').on('click', function () {
+            $('#myModalAddJugador').modal('show');
+        });
+
+        $('#myModalAddJugador').on('hidden.bs.modal', function (e) {
+            $('#frmAddJugador').trigger('reset');
+        });
+
+        $('#frmAddJugador').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            parameters.append('action', 'create_jugador');
+            parameters.append('Equipo_id', $('input[name="Equipo_id"]').val());
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de agregar el Jugador?', parameters, function (response) {
+                location.href = '{{ roster_url }}';
+                $('#myModalClient').modal('hide');
+            });
+        });
+
+    </script>
+{% endblock %}

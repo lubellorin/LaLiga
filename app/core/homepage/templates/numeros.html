@@ -1,0 +1,298 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+
+    <style>
+        table {
+            width: 100%;
+            border: 1px solid white;
+            }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid white;
+            border-collapse: collapse;
+            caption-side: bottom;
+            }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="col-lg-12 col-12">
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h4>Tabla de Posiciones</h4>
+                        </br>
+                        <div class="row">
+                            <div class="col-lg-4" style="text-align: center;"><b>Equipos</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>JJ</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>JG</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>JP</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>JE</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>Ptos.</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>CF</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>JC</b></div>
+                            <div class="col-lg-1" style="text-align: center;"><b>AVG</b></div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        {% for p12 in Tabla %}
+                        <div class="row">
+                            <div class="col-lg-4"><img src="{{ p12.Logo }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p12.Nombre }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.Jugados }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.Ganados }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.Perdidos }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.Empatados }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.Puntos }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.Favor }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.Contra }}</div>
+                            <div class="col-lg-1" style="text-align: center;">{{ p12.AVG }}</div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="col-sm-12">
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h4>Bateo</h4>
+                        {% for p17 in dataLiderBateo %}
+                            <div class="row">
+                                <div class="col-lg-3"><img src="{{ p17.Foto }}" class="img-fluid rounded-start" style="width: 60px; height: 60px;"></div>
+                                <div class="col-lg-9">
+                                    <b>{{ p17.Nombres }} {{ p17.ApellidoPaterno }}</b></br>
+                                    {{ p17.Equipo }}</br>
+                                    <b>AVG: {{ p17.AVG }}</b></br>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h4>Juegos Ganados</h4>
+                        {% for p16 in dataLiderGanados %}
+                            <div class="row">
+                                <div class="col-lg-3"><img src="{{ p16.Foto }}" class="img-fluid rounded-start" style="width: 60px; height: 60px;"></div>
+                                <div class="col-lg-9">
+                                    <b>{{ p16.Nombres }} {{ p16.ApellidoPaterno }}</b></br>
+                                    {{ p16.Equipo.Nombre }}</br>
+                                    <b>{{ p16.PIT_Ganados }} Juegos Ganados</b></br>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="col-sm-12">
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h4>HomeRun</h4>
+                        {% for p15 in dataLiderHR %}
+                            <div class="row">
+                                <div class="col-lg-3"><img src="{{ p15.Foto }}" class="img-fluid rounded-start" style="width: 60px; height: 60px;"></div>
+                                <div class="col-lg-9">
+                                    <b>{{ p15.Nombres }} {{ p15.ApellidoPaterno }}</b></br>
+                                    {{ p15.Equipo.Nombre }}</br>
+                                    <b>{{ p15.BAT_HR }} HomeRuns</b></br>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h4>StrikeOuts</h4>
+                        {% for p13 in dataLiderKO %}
+                            <div class="row">
+                                <div class="col-lg-3"><img src="{{ p13.Foto }}" class="img-fluid rounded-start" style="width: 60px; height: 60px;"></div>
+                                <div class="col-lg-9">
+                                    <b>{{ p13.Nombres }} {{ p13.ApellidoPaterno }}</b></br>
+                                    {{ p13.Equipo.Nombre }}</br>
+                                    <b>{{ p13.PIT_K }} StrikeOuts</b></br>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="col-sm-12">
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h4>Impulsadas</h4>
+                        {% for p14 in dataLiderImpulsadas %}
+                            <div class="row">
+                                <div class="col-lg-3"><img src="{{ p14.Foto }}" class="img-fluid rounded-start" style="width: 60px; height: 60px;"></div>
+                                <div class="col-lg-9">
+                                    <b>{{ p14.Nombres }} {{ p14.ApellidoPaterno }}</b></br>
+                                    {{ p14.Equipo.Nombre }}</br>
+                                    <b>{{ p14.BAT_CI }} Carreras Impulsadas</b></br>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Bateo</h4>
+                    {% for p11 in Bateo %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p11.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p11.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p11.AVG }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres HomeRun</h4>
+                    {% for p10 in HR %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p10.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p10.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p10.BAT_HR }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Impulsadas</h4>
+                    {% for p9 in Impulsadas %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p9.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p9.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p9.BAT_CI }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Juegos Ganados</h4>
+                    {% for p8 in Ganados %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p8.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p8.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p8.PIT_Ganados }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Dobles</h4>
+                    {% for p7 in Dobles %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p7.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p7.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p7.BAT_2B }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Triples</h4>
+                    {% for p6 in Triples %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p6.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p6.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p6.BAT_3B }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Anotadas</h4>
+                    {% for p5 in Anotadas %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p5.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p5.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p5.BAT_CA }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres KO Propinados</h4>
+                    {% for p4 in KOPropinados %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p4.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p4.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p4.PIT_K }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Bases Robadas</h4>
+                    {% for p3 in BRRecibidos %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p3.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p3.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p3.BAT_BR }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres Boletos Recibidos</h4>
+                    {% for p2 in BBRecibidos %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p2.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p2.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p2.BAT_BB }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h4>Lideres KO Recibidos</h4>
+                    {% for p1 in KORecibidos %}
+                        <div class="row">
+                            <div class="col-lg-9"><img src="{{ p1.Foto }}" class="img-circle" style="width: 40px; height: 40px;"> {{ p1.Jugador }}</div>
+                            <div class="col-lg-3" style="text-align: right;">{{ p1.BAT_K }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

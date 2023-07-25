@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block head %}
+
+    <style>
+        table {
+            width: 100%;
+            border: 1px solid white;
+            }
+
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid white;
+            border-collapse: collapse;
+            caption-side: bottom;
+            }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="card card-dark">
+        <div class="card-header"><h3 class="card-title"><i class="fa-solid fa-address-card"></i> Contactos</h3></div>
+        <div class="card-body">
+            <div class="row">
+                {% for Cont in dataContactos %}
+                    <div class="col-lg-3 col-12">
+                        <div class="small-box bg-dark">
+                            <div class="inner">
+                                <div class="row">
+                                    <div class="col-lg-3"><img src="{{ Cont.Foto }}" class="img-fluid rounded-start" style="width: 80px; height: 80px;"></div>
+                                    <div class="col-lg-9">
+                                        <b>{{ Cont.NombreCompleto }}</b></br>
+                                        {{ Cont.Equipo.Nombre }}</br>
+                                        {{ Cont.Telefonos }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

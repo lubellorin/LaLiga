@@ -1,0 +1,384 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="post" action="." enctype="multipart/form-data">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            {% if action == 'add' %}
+                                <i class="fas fa-plus"></i>
+                            {% else %}
+                                <i class="fas fa-edit"></i>
+                            {% endif %}
+
+                            {{ title }}
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="{{ action }}">
+                        {% if form.errors %}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h5><i class="icon fas fa-ban"></i> Ha ocurrido un error al querer guardar el registro</h5>
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <div class="form-row">
+                            <div class="col-sm-8">
+                                <label>Estadio:</label>
+                                <div class="col-sm-12">
+                                    <input type="text" name="Estadio" value="{{ Estadio }}" readonly class="form-control" style="width: 100%" required id="id_Estadio">
+                                </div>
+                            </div>
+                            <div class="col-sm-2" style="text-align: center;">
+                                <label>Fecha:</label>
+                                <div class="col-sm-12">
+                                    <input type="text" name="Fecha" value="{{ Fecha }}" readonly class="form-control" style="width: 100%" required id="id_Fecha">
+                                </div>
+                            </div>
+                            <div class="col-sm-2" style="text-align: center;">
+                                <label>Horario:</label>
+                                <div class="col-sm-12">
+                                    <input type="text" name="Horario" value="{{ Horario }}" readonly class="form-control" style="width: 100%" required id="id_Horario">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-6">
+                                <table class="table display cell-border" id="tblJornada">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 85%; text-align: center">Equipos</th>
+                                            <th scope="col" style="width: 15%; text-align: center">Carreras</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="{{ LogoVisitante }}" class="img-circle" style="width: 40px; height: 40px;">   <b>{{ Visitante }}</b></td>
+                                            <td class="text-center">{{ form.CarrerasVisitante }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="{{ LogoHomeClub }}" class="img-circle" style="width: 40px; height: 40px;">   <b>{{ HomeClub }}</b></td>
+                                            <td class="text-center">{{ form.CarrerasHomeClub }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-sm-12">
+                                    <label>Pizarra:</label><div class="col-sm-12">{{ form.Pizarra }}</div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-5">
+                                <br>
+                                <br>
+                                <table id="tblPichers">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 25%; text-align: center"></th>
+                                            <th scope="col" style="width: 75%; text-align: center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><label>Pitcher Ganador:</label></td>
+                                            <td><select name="PitcherGanador" class="form-control select2" style="width: 100%" maxlength="30" id="id_PitcherGanador"></select></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>Pitcher Perdedor:</label></td>
+                                            <td><select name="PitcherPerdedor" class="form-control select2" style="width: 100%" maxlength="30" id="id_PitcherPerdedor"></select></td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>MVP:</label></td>
+                                            <td><select name="MVP" class="form-control select2" style="width: 100%" maxlength="30" id="id_MVP"></select></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-flat">
+                            <i class="fas fa-save"></i> Guardar registro
+                        </button>
+                        <a href="{{ list_url }}" class="btn btn-danger btn-flat">
+                            <i class="fas fa-times"></i> Cancelar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(".two-decimals").change(function(){
+            this.value = parseFloat(this.value).toFixed(2);
+        });
+
+        $('.select2').select2({
+            theme: "bootstrap4",
+            language: 'es'
+        });
+
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+
+        $('#Fecha').datetimepicker({
+            format: 'YYYY-MM-DD',
+            date: moment().format("YYYY-MM-DD"),
+            locale: 'es',
+            maxDate: moment().format("YYYY-MM-DD"),
+        });
+
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+
+            var selectPG = document.getElementById("id_PitcherGanador");
+            var textoPG = selectPG.options[selectPG.selectedIndex].text;
+
+            var selectPP = document.getElementById("id_PitcherPerdedor");
+            var textoPP = selectPP.options[selectPP.selectedIndex].text;
+
+            var selectMVP = document.getElementById("id_MVP");
+            var textoMVP = selectMVP.options[selectMVP.selectedIndex].text;
+
+            var parameters = new FormData(this);
+            parameters.append('textoPG', textoPG);
+            parameters.append('textoPP', textoPP);
+            parameters.append('textoMVP', textoMVP);
+            submit_with_ajax(window.location.pathname, 'Alerta', '¿Estas seguro de guardar el registro?', parameters, function () {
+                Swal.fire({
+                    title: 'Alerta',
+                    text: 'Proceso Finalizado Correctamente',
+                    icon: 'success',
+                    onClose: () => {
+                        location.href = '{{ list_url }}';
+                    }
+                });
+            });
+        });
+
+        $('input[name="CarrerasVisitante"]').on('change', function () {
+            var ln_CarrerasVisitante = parseInt($('input[name="CarrerasVisitante"]').val());
+            var ln_CarrerasHomeClub = parseInt($('input[name="CarrerasHomeClub"]').val());
+
+            var JugadoresVisitante = {{ jugadoresVisitante|safe }}
+            var jugadoresHomeClub = {{ jugadoresHomeClub|safe }}
+            if (ln_CarrerasVisitante > ln_CarrerasHomeClub) {
+                const $selectPG = document.getElementById("id_PitcherGanador");
+                for (let i = $selectPG.options.length; i >= 0; i--) {
+                    $selectPG.remove(i);
+                }
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPG.appendChild(optionElement);
+                });
+
+                const $selectMVP = document.getElementById("id_MVP");
+                for (let i = $selectMVP.options.length; i >= 0; i--) {
+                    $selectMVP.remove(i);
+                }
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+
+                const $selectPP = document.getElementById("id_PitcherPerdedor");
+                for (let i = $selectPP.options.length; i >= 0; i--) {
+                    $selectPP.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPP.appendChild(optionElement);
+                });
+
+            } else if (ln_CarrerasVisitante < ln_CarrerasHomeClub){
+                const $selectPG = document.getElementById("id_PitcherGanador");
+                for (let i = $selectPG.options.length; i >= 0; i--) {
+                    $selectPG.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPG.appendChild(optionElement);
+                });
+
+                const $selectMVP = document.getElementById("id_MVP");
+                for (let i = $selectMVP.options.length; i >= 0; i--) {
+                    $selectMVP.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+
+                const $selectPP = document.getElementById("id_PitcherPerdedor");
+                for (let i = $selectPP.options.length; i >= 0; i--) {
+                    $selectPP.remove(i);
+                }
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPP.appendChild(optionElement);
+                });
+            } else {
+                const $selectPP = document.getElementById("id_PitcherPerdedor");
+                for (let i = $selectPP.options.length; i >= 0; i--) {
+                    $selectPP.remove(i);
+                }
+                const $selectPG = document.getElementById("id_PitcherGanador");
+                for (let i = $selectPG.options.length; i >= 0; i--) {
+                    $selectPG.remove(i);
+                }
+                const $selectMVP = document.getElementById("id_MVP");
+                for (let i = $selectMVP.options.length; i >= 0; i--) {
+                    $selectMVP.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+            }
+        });
+
+        $('input[name="CarrerasHomeClub"]').on('change', function () {
+            var ln_CarrerasVisitante = parseInt($('input[name="CarrerasVisitante"]').val());
+            var ln_CarrerasHomeClub = parseInt($('input[name="CarrerasHomeClub"]').val());
+
+            var JugadoresVisitante = {{ jugadoresVisitante|safe }}
+            var jugadoresHomeClub = {{ jugadoresHomeClub|safe }}
+            if (ln_CarrerasVisitante > ln_CarrerasHomeClub) {
+                const $selectPG = document.getElementById("id_PitcherGanador");
+                for (let i = $selectPG.options.length; i >= 0; i--) {
+                    $selectPG.remove(i);
+                }
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPG.appendChild(optionElement);
+                });
+
+                const $selectMVP = document.getElementById("id_MVP");
+                for (let i = $selectMVP.options.length; i >= 0; i--) {
+                    $selectMVP.remove(i);
+                }
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+
+                const $selectPP = document.getElementById("id_PitcherPerdedor");
+                for (let i = $selectPP.options.length; i >= 0; i--) {
+                    $selectPP.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPP.appendChild(optionElement);
+                });
+
+            } else if (ln_CarrerasVisitante < ln_CarrerasHomeClub){
+                const $selectPG = document.getElementById("id_PitcherGanador");
+                for (let i = $selectPG.options.length; i >= 0; i--) {
+                    $selectPG.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPG.appendChild(optionElement);
+                });
+
+                const $selectMVP = document.getElementById("id_MVP");
+                for (let i = $selectMVP.options.length; i >= 0; i--) {
+                    $selectMVP.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+
+                const $selectPP = document.getElementById("id_PitcherPerdedor");
+                for (let i = $selectPP.options.length; i >= 0; i--) {
+                    $selectPP.remove(i);
+                }
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectPP.appendChild(optionElement);
+                });
+            } else {
+                const $selectPP = document.getElementById("id_PitcherPerdedor");
+                for (let i = $selectPP.options.length; i >= 0; i--) {
+                    $selectPP.remove(i);
+                }
+                const $selectPG = document.getElementById("id_PitcherGanador");
+                for (let i = $selectPG.options.length; i >= 0; i--) {
+                    $selectPG.remove(i);
+                }
+                const $selectMVP = document.getElementById("id_MVP");
+                for (let i = $selectMVP.options.length; i >= 0; i--) {
+                    $selectMVP.remove(i);
+                }
+                jugadoresHomeClub.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+                JugadoresVisitante.forEach(opcion => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = opcion.id;
+                    optionElement.textContent = opcion.text;
+                    $selectMVP.appendChild(optionElement);
+                });
+            }
+        });
+    </script>
+{% endblock %}

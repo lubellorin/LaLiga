@@ -1,0 +1,114 @@
+{% load static %}
+    <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <!--
+                    <li>
+                        <div class="user-img-div">
+                            <img src="assets/img/user.png" class="img-thumbnail"/>
+                            <div class="inner-text">Jhon Deo Alex</div>
+                        </div>
+                    </li>
+                    -->
+                    <li><a class="active-menu" href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-boxes-packing"></i>  Administración <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="panel-tabs.html"><i class="fa-regular fa-address-book"></i> Clientes</a></li>
+                            <li><a href="notification.html"><i class="fa-solid fa-user-plus"></i> Clientes Prospectos</a></li>
+                            <li><a href="progress.html"><i class="fa-solid fa-clipboard-list"></i> Lista Negra de Clientes</a></li>
+                            <li><a href="buttons.html"><i class="fa-solid fa-address-book"></i> Proveedores</a></li>
+                            <li><a href="icons.html"><i class="fa-solid fa-book"></i> Cuentas por Cobrar</a></li>
+                            <li><a href="wizard.html"><i class="fa-solid fa-briefcase"></i></i> Cuentas por Pagar</a></li>
+                            <li><a href="typography.html"><i class="fa-solid fa-money-bill-transfer"></i> Movimientos de Efectivo</a></li>
+                            <li><a href="grid.html"><i class="fa-solid fa-vault"></i> Movimientos Ctas. Bancarias</a></li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa-solid fa-dolly"></i>  Operaciones <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-tent-arrow-left-right"></i> Ventas</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-diagram-next"></i> Notas de Credito</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-box-archive"></i> Productos</a></li>
+                            <!--<li><a href="{% url 'erp:ventas_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-shopping"></i> Consulta Ventas</a></li>
+                            <li><a href="{% url 'erp:compras_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-arrow-down"></i> Compras</a></li>
+                            <li><a href="{% url 'erp:devolucioncompra_list' %}" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Devoluciones de Compras</a></li>-->
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-clock"></i> Asistencia</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-magnifying-glass"></i>  Consultas <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-cart-shopping"></i> Ventas</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-user-tie"></i> Resumen Vendedores</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-user-tie"></i> Detalle por Vendedor</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-diagram-next"></i> Notas de Credito</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-receipt"></i> Reservas</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-file-invoice-dollar"></i> Cuotas/Pagos Pendientes</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-message"></i> Comentarios</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-gears"></i>  Configuración <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-hotel"></i> Empresa</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-money-bill-1"></i> Monedas</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-building-columns"></i> Bancos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-money-check-dollar"></i> Cuentas Bancarias</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-cash-register"></i> Cajas</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-credit-card"></i> Métodos de Pago</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-pen-ruler"></i> Unidades</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-warehouse"></i> Depositos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-truck"></i> Empresas Envíos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fas fa-users"></i> Usuarios</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-rectangle-list"></i> Categorías</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-cart-flatbed"></i> Gastos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-dolly"></i> SubGastos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-money-bill-transfer"></i> Transacciones</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-book-atlas"></i> Conceptos de Movimientos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-file-lines"></i> Tipos de Documentos</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-address-card"></i> Tipos de Identificación</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="fa-solid fa-file-arrow-up"></i> Importar Datos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="blank.html"><i class="fa-solid fa-computer"></i> Soporte</a></li>
+                    <li>
+                        <a href="#"><img src="assets/img/user.png" class="img-circle d-block mx-auto" style="width: 30px; height: 30px;" alt="User Image"> Luis Bellorin <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#"><i class="fas fa-edit mr-2"></i> Editar Usuario</a></li>
+                            <li><a href="#"><i class="fas fa-lock mr-2"></i> Editar password</a></li>
+                            <li><a href="buttons.html"><i class="fa-solid fa-user-group"></i> Perfil Seleccionado:  XXX</a></li>
+                            <li><a href="icons.html"><i class="fa-solid fa-user-group"></i> Perfil: YYYYY</a></li>
+                            <li><a href="login.html"><i class="fas fa-power-off"></i> Salir</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line">
+                            DASHBOARD
+                            <div class="header-right">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                                    <li class="breadcrumb-item"><a href="#">entity</a></li>
+                                </ol>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+
+
+
+                </div>
+                <!--/.Row-->
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
